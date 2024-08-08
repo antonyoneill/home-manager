@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "antony";
@@ -83,13 +85,36 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "direnv" "wd" ];
+      plugins = ["git" "direnv" "wd"];
     };
-
-   
   };
   home.file.".config/zsh/zsh.d".source = ./files/zsh/zsh.d;
   home.file.".config/zsh/zsh.d".recursive = true;
+
+  programs.nixvim = {
+    enable = true;
+
+    vimAlias = true;
+
+    extraPackages = with pkgs; [alejandra];
+    extraPlugins = [pkgs.vimPlugins.gruvbox];
+    colorschemes.gruvbox.enable = true;
+    plugins.lightline.enable = true;
+    plugins.conform-nvim = {
+      enable = true;
+      formattersByFt = {
+        nix = ["alejandra"];
+      };
+      formatOnSave = {};
+    };
+
+    opts = {
+      expandtab = true;
+      shiftwidth = 2;
+      smartindent = true;
+      tabstop = 2;
+    };
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
