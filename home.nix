@@ -116,6 +116,33 @@
     };
   };
 
+  programs.git = {
+    enable = true;
+    userName = "Antony O'Neill";
+    userEmail = "antony@ant-web.co.uk";
+    signing = {
+      key = "49293F327888CC24F7C8FD652DFFAD3B0C45D8A4";
+      signByDefault = false;
+    };
+    aliases = {
+      initpls = "!git init && git ci -m 'Root Commit' --allow-empty";
+      co = "checkout";
+      ci = "commit -v";
+      ciane = "!git commit --amend --no-edit";
+      st = "status";
+      lola = "log --all --decorate --oneline --graph";
+      recover-rejected-commit = "!git ci -e --file=$(git rev-parse --git-dir)/COMMIT_EDITMSG";
+      # Get the current branch name (not so useful in itself, but used in
+      # other aliases)
+      branch-name = "!git rev-parse --abbrev-ref HEAD";
+      # Push the current branch to the remote "origin", and set it to track
+      # the upstream branch
+      publish = "!git push -u origin $(git branch-name)";
+      rbd = "!git reset --hard \"origin/$(git branch-name)\" && git fetch origin && git rebase origin/development && git push -f";
+      rbm = "!git reset --hard \"origin/$(git branch-name)\" && git fetch origin && git rebase origin/master && git push -f";
+    };
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
