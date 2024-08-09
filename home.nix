@@ -1,12 +1,13 @@
 {
   config,
   pkgs,
+  specialArgs,
   ...
 }: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "antony";
-  home.homeDirectory = "/home/antony";
+  home.homeDirectory = specialArgs.homeDir + "/antony";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -124,22 +125,30 @@
       key = "49293F327888CC24F7C8FD652DFFAD3B0C45D8A4";
       signByDefault = false;
     };
+    ignores = [
+      ".idea"
+    ];
     aliases = {
-      initpls = "!git init && git ci -m 'Root Commit' --allow-empty";
-      co = "checkout";
-      ci = "commit -v";
-      ciane = "!git commit --amend --no-edit";
-      st = "status";
-      lola = "log --all --decorate --oneline --graph";
-      recover-rejected-commit = "!git ci -e --file=$(git rev-parse --git-dir)/COMMIT_EDITMSG";
-      # Get the current branch name (not so useful in itself, but used in
-      # other aliases)
       branch-name = "!git rev-parse --abbrev-ref HEAD";
-      # Push the current branch to the remote "origin", and set it to track
-      # the upstream branch
+      ci = "commit -v";
+      cia = "!git ci --amend";
+      ciane = "!git cia --no-edit";
+      cianef = "!git ciane --fixup";
+      co = "checkout";
+      evclone = "!f() { git clone git@github.com:eeveebank/$1; }; f";
+      git = "!git";
+      initpls = "!git init && git ci -m 'Root Commit' --allow-empty";
+      lol = "log --decorate --oneline --graph";
+      lola = "log --all --decorate --oneline --graph";
+      ppr = "!git rbm && git publish && git prlazy";
+      ppro = "!git ppr && gh pr view --web";
+      prlazy = "!gh pr create --fill";
       publish = "!git push -u origin $(git branch-name)";
-      rbd = "!git reset --hard \"origin/$(git branch-name)\" && git fetch origin && git rebase origin/development && git push -f";
-      rbm = "!git reset --hard \"origin/$(git branch-name)\" && git fetch origin && git rebase origin/master && git push -f";
+      rbd = "!git fetch origin && git rebase origin/development && echo 'now git push'";
+      rbm = "!git fetch origin && git rebase origin/master && echo 'now git push'";
+      rbmp = "!git fetch origin && git rebase origin/master && git push";
+      recover-rejected-commit = "!git ci -e --file=$(git rev-parse --git-dir)/COMMIT_EDITMSG";
+      st = "status";
     };
   };
 
