@@ -25,8 +25,7 @@
     ...
   }: {
     homeConfigurations."linux" = home-manager.lib.homeManagerConfiguration rec {
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
       # Specify your home configuration modules here, for example,
       # the path to your home.nix.
