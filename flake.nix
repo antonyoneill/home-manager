@@ -48,7 +48,7 @@
       modules = [
         nixvim.homeManagerModules.nixvim
         ./home.nix
-        ./work.nix
+        ./profiles/work.nix
       ];
 
       # Optionally use extraSpecialArgs

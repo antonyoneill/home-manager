@@ -3,7 +3,7 @@
   pkgs,
   specialArgs,
   ...
-}: {
+}: rec {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "antony";
@@ -61,7 +61,7 @@
   # located at either
   #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
+
   # or
   #
   #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
@@ -71,7 +71,7 @@
   #  /etc/profiles/per-user/antony/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    PATH = "$PATH:" + home.homeDirectory + "/bin";
   };
 
   programs.direnv = {
@@ -84,6 +84,15 @@
       for config (~/.config/zsh/zsh.d/*.zsh) source $config
     '';
 
+    zplug = {
+      enable = true;
+      plugins = [
+        {
+          name = "dracula/zsh";
+          tags = [as:theme];
+        }
+      ];
+    };
     oh-my-zsh = {
       enable = true;
       plugins = ["git" "direnv" "wd"];
@@ -94,6 +103,7 @@
 
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
 
     vimAlias = true;
 
