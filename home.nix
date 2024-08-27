@@ -9,10 +9,8 @@
     ./modules
   ];
 
-  home.username = "antony";
-  home.homeDirectory = specialArgs.homeDir + "/antony";
-
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.username = specialArgs.username;
+  home.homeDirectory = specialArgs.homeDir + "/" + specialArgs.username;
 
   home.packages = [
   ];
@@ -25,6 +23,7 @@
     nixvim.enable = true;
   };
 
-  # Let Home Manager install and manage itself.
+  # Do not change below
   programs.home-manager.enable = true;
+  home.stateVersion = "24.05";
 }

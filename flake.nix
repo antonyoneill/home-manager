@@ -23,39 +23,41 @@
     home-manager,
     nixvim,
     ...
-  }: {
-    homeConfigurations."linux" = home-manager.lib.homeManagerConfiguration rec {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+  }: let
+    commonModules = [
+      nixvim.homeManagerModules.nixvim
+      ./home.nix
+    ];
+    linuxConfig = username: hostname: profiles:
+      home-manager.lib.homeManagerConfiguration rec {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
-      modules = [
-        nixvim.homeManagerModules.nixvim
-        ./home.nix
-      ];
+        modules =
+          commonModules
+          ++ map (profile: ./profiles/${profile}.nix) profiles;
 
-      # Optionally use extraSpecialArgs
-      # to pass through arguments to home.nix
-      extraSpecialArgs = {
-        homeDir = "/home/";
+        extraSpecialArgs = {
+          homeDir = "/home/";
+          username = username;
+        };
       };
-    };
-    homeConfigurations."darwin" = home-manager.lib.homeManagerConfiguration rec {
-      pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+    darwinConfig = username: hostname: profiles:
+      home-manager.lib.homeManagerConfiguration rec {
+        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
 
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
-      modules = [
-        nixvim.homeManagerModules.nixvim
-        ./home.nix
-        ./profiles/work.nix
-      ];
+        modules =
+          commonModules
+          ++ map (profile: ./profiles/${profile}.nix) profiles;
 
-      # Optionally use extraSpecialArgs
-      # to pass through arguments to home.nix
-      extraSpecialArgs = {
-        homeDir = "/Users/";
+        extraSpecialArgs = {
+          homeDir = "/Users/";
+          username = username;
+        };
       };
+  in {
+    homeConfigurations = {
+      linux = linuxConfig "antony" [];
+      M-T60L22YDWJ = darwinConfig "antony" "M-T60L22YDWJ" ["work"];
     };
   };
 }
