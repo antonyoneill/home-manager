@@ -10,9 +10,13 @@
     pkgs.awscli2
   ];
 
-  programs.spotify-player = {
+  modules.my.git = {
     enable = true;
   };
 
-  programs.git.signing.signByDefault = lib.mkForce true;
+  programs.git.userEmail = "antony.oneill@mettle.co.uk";
+
+  programs.spotify-player = {
+    enable = true;
+  };
 }
