@@ -16,6 +16,10 @@
 
   programs.git.userEmail = "antony.oneill@mettle.co.uk";
 
+  programs.ssh.includes = [
+    "/Users/antony/.colima/ssh_config"
+  ];
+
   programs.spotify-player = {
     enable = true;
   };

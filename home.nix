@@ -23,6 +23,12 @@
     nixvim.enable = true;
   };
 
+  programs.ssh = {
+    enable = true;
+    forwardAgent = true;
+    addKeysToAgent = "yes";
+  };
+
   # Do not change below
   programs.home-manager.enable = true;
   home.stateVersion = "24.05";
