@@ -34,6 +34,7 @@
 
         modules =
           commonModules
+          ++ nixpkgs.lib.optional (builtins.pathExists ./hosts/${hostname}.nix) ./hosts/${hostname}.nix
           ++ map (profile: ./profiles/${profile}.nix) profiles;
 
         extraSpecialArgs = {
