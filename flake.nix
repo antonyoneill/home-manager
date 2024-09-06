@@ -56,7 +56,7 @@
       };
   in {
     homeConfigurations = {
-      linux = linuxConfig "antony" [];
+      alpha = linuxConfig "antony" "alpha" [];
       M-T60L22YDWJ = darwinConfig "antony" "M-T60L22YDWJ" ["work"];
     };
   };
