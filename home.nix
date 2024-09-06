@@ -19,6 +19,7 @@
   };
 
   modules.my = {
+    git.enable = true;
     shell.enable = true;
     nixvim.enable = true;
   };
