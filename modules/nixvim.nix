@@ -34,6 +34,13 @@ in {
         };
         formatOnSave = {};
       };
+      keymaps = [
+        {
+          key = "w!!";
+          action = "execute 'write !sudo tee % >/dev/null' <bar> edit!";
+          mode = ["c"];
+        }
+      ];
 
       opts = {
         expandtab = true;
