@@ -27,9 +27,8 @@ then
 
     if [[ -n "$old_agent"  && "$SHLVL" -eq 1 ]]
     then
-        echo "Cleaning old forwarded agent. Reconnect"
+        echo "Cleaning old forwarded agent. GPG agent forwarding will not work until you reconnect"
         rm -rf "$agent_path"
-        exit
     fi
 else
  	# Allow remote machines to access the local agent
