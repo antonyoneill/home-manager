@@ -13,6 +13,8 @@
   home.homeDirectory = specialArgs.homeDir + "/" + specialArgs.username;
 
   home.packages = [
+    pkgs.tmux
+    pkgs.htop
   ];
 
   home.file = {

@@ -28,7 +28,7 @@ in {
       initExtra = ''
         for config (~/.config/zsh/zsh.d/*.zsh) source $config
         fpath+=(~/.config/zsh/pure)
-
+        export PURE_PROMPT_SYMBOL=$
         autoload -U promptinit; promptinit
         prompt pure
       '';
