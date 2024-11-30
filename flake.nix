@@ -30,7 +30,10 @@
     ];
     linuxConfig = username: hostname: profiles:
       home-manager.lib.homeManagerConfiguration rec {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
 
         modules =
           commonModules
@@ -57,7 +60,7 @@
       };
   in {
     homeConfigurations = {
-      carbon-nix= linuxConfig "antony" "carbon-nix" [];
+      carbon-nix = linuxConfig "antony" "carbon-nix" [];
       alpha = linuxConfig "antony" "alpha" [];
       M-T60L22YDWJ = darwinConfig "antony" "M-T60L22YDWJ" ["work"];
     };
